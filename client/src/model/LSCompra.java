@@ -39,7 +39,9 @@ public class LSCompra {
     }
 
     public void eliminaProducte(Producte producte) {
-
+        if (!productes.isEmpty()) {
+            productes.remove(producte);
+        }
     }
 
     public void mostraLlistaCompra() {
