@@ -25,11 +25,13 @@ public class LSCompra {
 
     // Mètodes
     public void afegeixProducte(Producte producte) {
-        for (Producte p: productes) {
-            // Mirem si ja existeix el producte a la llista
-            if (p.getNom().equals(producte.getNom())) {
-                p.setQuantitat(p.getQuantitat() + producte.getQuantitat());
-                return;
+        if (!productes.isEmpty()) {
+            for (Producte p : productes) {
+                // Mirem si ja existeix el producte a la llista
+                if (p.getNom().equals(producte.getNom())) {
+                    p.setQuantitat(p.getQuantitat() + producte.getQuantitat());
+                    return;
+                }
             }
         }
         // Si no existeix el producte, l'afegim a la llista
