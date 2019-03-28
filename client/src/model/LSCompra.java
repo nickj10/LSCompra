@@ -28,8 +28,7 @@ public class LSCompra {
         for (Producte p: productes) {
             // Mirem si ja existeix el producte a la llista
             if (p.getNom().equals(producte.getNom())) {
-                int quantitat = p.getQuantitat();
-                p.setQuantitat(quantitat + 1);
+                p.setQuantitat(p.getQuantitat() + producte.getQuantitat());
                 return;
             }
         }
