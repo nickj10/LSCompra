@@ -25,7 +25,7 @@ public class LSCompra {
 
     // Mètodes
     public void afegeixProducte(Producte producte) {
-
+        productes.add(producte);
     }
 
     public void eliminaProducte(Producte producte) {
