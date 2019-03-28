@@ -2,15 +2,15 @@ package model;
 
 import java.util.LinkedList;
 
-public class LSCompra {
+public class GestorProductes {
     private LinkedList<Producte> productes;
 
     // Constructors
-    public LSCompra(LinkedList<Producte> productes) {
+    public GestorProductes(LinkedList<Producte> productes) {
         this.productes = productes;
     }
 
-    public LSCompra() {
+    public GestorProductes() {
         productes = new LinkedList<Producte>();
     }
 
