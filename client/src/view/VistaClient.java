@@ -13,11 +13,13 @@ public class VistaClient extends JFrame {
     private JButton jbAddProduct;
     private JButton jbRemoveProduct;
     private JPanel jpMainPanel;
-    private int[] unitats = new int[10];
+    private JComboBox<String> jcbNomProductes;
 
     public VistaClient() {
         JTabbedPane jtMenu = new JTabbedPane();
-        JPanel jpAddProduct = new JPanel();
+
+        // Panell per afegir un producte
+        JPanel jpAddProduct = new JPanel(new BorderLayout());
 
         // El nom del producte
         JPanel jpProductName = new JPanel(new FlowLayout());
@@ -28,27 +30,55 @@ public class VistaClient extends JFrame {
         jpProductName.add(jlProduct);
         jpProductName.add(jtfProductName);
 
+
         // Unitats del producte
         JPanel jpProductUnits = new JPanel(new FlowLayout());
         JLabel jlUnits = new JLabel("Product Units");
+        Integer[] unitats = new Integer[10];
         for(int i = 0; i < 10; i++) {
             unitats[i] = i + 1;
         }
-        JComboBox<int[]> jcbUnitats = new JComboBox<int[]>();
+        JComboBox<Integer> jcbUnitats = new JComboBox<Integer>(unitats);
+        jcbUnitats.setPreferredSize(new Dimension(200, 25));
         jpProductUnits.add(jlUnits);
+        jpProductUnits.add(jcbUnitats);
 
         // Botó per afegir productes
-        JPanel jpAddProductButton = new JPanel(new BorderLayout());
+        JPanel jpAddProductButton = new JPanel(new FlowLayout());
         jbAddProduct = new JButton("Add Product");
-        jpAddProductButton.add(jbAddProduct, BorderLayout.LINE_END);
+        jpAddProductButton.add(jbAddProduct);
 
         // Afegir els panells de cada part al panell general de la pestaña "Add Product"
-        jpAddProduct.add(jpProductName);
-        jpAddProduct.add(jpProductUnits);
-        jpAddProduct.add(jpAddProductButton);
+        jpAddProduct.add(jpProductName, BorderLayout.PAGE_START);
+
+        JPanel jpCenter = new JPanel(new BorderLayout());
+        jpCenter.add(jpProductUnits, BorderLayout.NORTH);
+
+        JPanel jpCenterButton = new JPanel(new GridLayout(1, 2));
+        jpCenterButton.add(new JPanel());
+        jpCenterButton.add(jpAddProductButton);
+        jpCenter.add(jpCenterButton, BorderLayout.CENTER);
+
+        jpAddProduct.add(jpCenter, BorderLayout.CENTER);
 
 
+        // Panell per eliminar un producte
         JPanel jpRemoveProduct = new JPanel();
+        JPanel jpNomProducte = new JPanel(new FlowLayout());
+        JLabel jpTitleProduct = new JLabel("Product");
+        jcbNomProductes = new JComboBox<String>();
+        jcbNomProductes.setPreferredSize(new Dimension(200, 25));
+        jpNomProducte.add(jpTitleProduct);
+        jpNomProducte.add(jcbNomProductes);
+
+        // Botó per afegir productes
+        JPanel jpRemoveProductButton = new JPanel(new BorderLayout());
+        jbRemoveProduct = new JButton("Remove Product");
+        jpRemoveProductButton.add(jbRemoveProduct);
+
+        // Afegir els panells de cada part al panell general de la tab "Remove Product"
+        jpRemoveProduct.add(jpNomProducte, BorderLayout.PAGE_START);
+        jpRemoveProduct.add(jpRemoveProductButton, BorderLayout.CENTER);
 
         JPanel jpListProducts = new JPanel();
 
@@ -60,7 +90,7 @@ public class VistaClient extends JFrame {
         getContentPane().add(jtMenu, BorderLayout.CENTER);
 
         // Donem una mida a la finestra
-        setSize(500, 300);
+        setSize(400, 250);
         setResizable(false);
 
         // Li posem un títol
