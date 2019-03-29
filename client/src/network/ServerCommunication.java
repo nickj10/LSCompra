@@ -4,6 +4,7 @@ import model.GestorProductes;
 import model.Producte;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 
 public class ServerCommunication extends Thread {
@@ -17,6 +18,8 @@ public class ServerCommunication extends Thread {
         try {
             this.model = model;
             this.socketServer = new Socket(ServerConfiguration.SERVER_IP, ServerConfiguration.SERVER_PORT);
+
+            System.out.println("----- CLIENT TO SERVER COM STARTED ----");
             this.running = false;
             this.dis = new DataInputStream(socketServer.getInputStream());
             this.oos = new ObjectOutputStream(socketServer.getOutputStream());

@@ -19,7 +19,6 @@ public class ControladorBotons implements ActionListener {
 
         // Iniciem la recepció d'actualitzacions
         serverCommunication.startServerComunication();
-        System.out.println("----- CLIENT TO SERVER COM STARTED ----");
     }
 
     @Override
