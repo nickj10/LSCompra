@@ -28,8 +28,8 @@ public class VistaClient extends JFrame {
         // El nom del producte
         JPanel jpProductName = new JPanel(new FlowLayout());
         JLabel jlProduct = new JLabel("Product Name");
-        JTextField jtfProductName = new JTextField();
-        jtfProductName.setPreferredSize(new Dimension(200, 25));
+        jtfProductName = new JTextField();
+        jtfProductName.setPreferredSize(new Dimension(213, 25));
         jtfProductName.setEditable(true);
         jpProductName.add(jlProduct);
         jpProductName.add(jtfProductName);
@@ -42,8 +42,8 @@ public class VistaClient extends JFrame {
         for(int i = 0; i < 10; i++) {
             unitats[i] = i + 1;
         }
-        JComboBox<Integer> jcbUnitats = new JComboBox<Integer>(unitats);
-        jcbUnitats.setPreferredSize(new Dimension(200, 25));
+        jcbUnitats = new JComboBox<Integer>(unitats);
+        jcbUnitats.setPreferredSize(new Dimension(213, 25));
         jpProductUnits.add(jlUnits);
         jpProductUnits.add(jcbUnitats);
 
@@ -71,7 +71,7 @@ public class VistaClient extends JFrame {
         JPanel jpNomProducte = new JPanel(new FlowLayout());
         JLabel jpTitleProduct = new JLabel("Product");
         jcbNomProductes = new JComboBox<String>();
-        jcbNomProductes.setPreferredSize(new Dimension(200, 25));
+        jcbNomProductes.setPreferredSize(new Dimension(250, 25));
         jpNomProducte.add(jpTitleProduct);
         jpNomProducte.add(jcbNomProductes);
 
