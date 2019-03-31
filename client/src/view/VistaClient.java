@@ -14,6 +14,10 @@ public class VistaClient extends JFrame {
     private JButton jbRemoveProduct;
     private JPanel jpMainPanel;
     private JComboBox<String> jcbNomProductes;
+    private JTextArea jtaListProducts;
+    private JTextField jtfProductName;
+    private JPanel jpListProducts;
+
 
     public VistaClient() {
         JTabbedPane jtMenu = new JTabbedPane();
@@ -77,14 +81,20 @@ public class VistaClient extends JFrame {
         jpRemoveProductButton.add(jbRemoveProduct);
 
         // Afegir els panells de cada part al panell general de la tab "Remove Product"
-        jpRemoveProduct.add(jpNomProducte, BorderLayout.PAGE_START);
-        jpRemoveProduct.add(jpRemoveProductButton, BorderLayout.CENTER);
+        JPanel jpCenterRemoveProduct = new JPanel(new BorderLayout());
+        jpCenterRemoveProduct.add(jpNomProducte, BorderLayout.NORTH);
+        jpCenterRemoveProduct.add(jpCenterRemoveButton, BorderLayout.CENTER);
 
-        JPanel jpListProducts = new JPanel();
+        jpRemoveProduct.add(jpCenterRemoveProduct, BorderLayout.CENTER);
+
+        jpListProducts = new JPanel(new BorderLayout());
+        JScrollPane jspListProducts = new JScrollPane(jpListProducts);
+        jtaListProducts = new JTextArea();
+        jpListProducts.add(jtaListProducts);
 
         jtMenu.addTab("Add Product", jpAddProduct);
         jtMenu.addTab("Remove Product", jpRemoveProduct);
-        jtMenu.addTab("List products", jpListProducts);
+        jtMenu.addTab("List products", jspListProducts);
 
 
         getContentPane().add(jtMenu, BorderLayout.CENTER);
