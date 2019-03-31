@@ -55,6 +55,8 @@ public class ServerCommunication extends Thread {
                 // Si hi ha algun problema satura la comunicacio amb el servidor
                 stopServerComunication();
                 System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
         stopServerComunication();
