@@ -12,7 +12,7 @@ public class VistaClient extends JFrame {
 
     private JButton jbAddProduct;
     private JButton jbRemoveProduct;
-    private JPanel jpMainPanel;
+    private JComboBox<Integer> jcbUnitats;
     private JComboBox<String> jcbNomProductes;
     private JTextArea jtaListProducts;
     private JTextField jtfProductName;
@@ -76,9 +76,13 @@ public class VistaClient extends JFrame {
         jpNomProducte.add(jcbNomProductes);
 
         // Botó per afegir productes
-        JPanel jpRemoveProductButton = new JPanel(new BorderLayout());
+        JPanel jpRemoveProductButton = new JPanel(new FlowLayout());
         jbRemoveProduct = new JButton("Remove Product");
+        jbRemoveProduct.setActionCommand("remove");
         jpRemoveProductButton.add(jbRemoveProduct);
+        JPanel jpCenterRemoveButton = new JPanel(new GridLayout(1, 2));
+        jpCenterRemoveButton.add(new JPanel());
+        jpCenterRemoveButton.add(jpRemoveProductButton);
 
         // Afegir els panells de cada part al panell general de la tab "Remove Product"
         JPanel jpCenterRemoveProduct = new JPanel(new BorderLayout());
@@ -119,6 +123,6 @@ public class VistaClient extends JFrame {
 
     public void assignaControladorBotons(ControladorBotons bController) {
         jbAddProduct.addActionListener(bController);
-        //jbRemoveProduct.addActionListener(bController);
+        jbRemoveProduct.addActionListener(bController);
     }
 }
