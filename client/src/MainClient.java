@@ -12,7 +12,7 @@ public class MainClient {
         GestorProductes gestorProductes = new GestorProductes();
 
         // Creem la connexió al servidor
-        ServerCommunication sCommunication = new ServerCommunication(gestorProductes);
+        ServerCommunication sCommunication = new ServerCommunication(vista);
 
         // crea el controlador del botons i estableix la relacio C->V i C->M
         ControladorBotons controladorBotons = new ControladorBotons(gestorProductes, vista, sCommunication);
