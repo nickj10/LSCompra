@@ -50,6 +50,7 @@ public class VistaClient extends JFrame {
         // Botó per afegir productes
         JPanel jpAddProductButton = new JPanel(new FlowLayout());
         jbAddProduct = new JButton("Add Product");
+        jbAddProduct.setActionCommand("add");
         jpAddProductButton.add(jbAddProduct);
 
         // Afegir els panells de cada part al panell general de la pestaña "Add Product"
