@@ -41,7 +41,11 @@ public class GestorProductes implements Serializable {
 
     public void eliminaProducte(Producte producte) {
         if (!productes.isEmpty()) {
-            productes.remove(producte);
+            for (int i = 0; i < productes.size(); i++) {
+                if(productes.get(i).getNom().equals(producte.getNom())) {
+                    productes.remove(i);
+                }
+            }
         }
     }
 
