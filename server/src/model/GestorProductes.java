@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestorProductes {
+public class GestorProductes implements Serializable {
     private LinkedList<Producte> productes;
 
     // Constructors

@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestorProductes {
+public class GestorProductes implements Serializable {
     private LinkedList<Producte> productes;
 
     // Constructors
@@ -25,14 +26,14 @@ public class GestorProductes {
 
     // Mètodes
     public void afegeixProducte(Producte producte) {
-        // Fer la petició al servidor per afegir productes
+
     }
 
     public void eliminaProducte(Producte producte) {
-        // Fer la petició al servidor per eliminar productes
+
     }
 
     public void mostraLlistaCompra() {
-        // Fer la petició al servidor per mostrar productes
+
     }
 }
