@@ -119,7 +119,23 @@ public class VistaClient extends JFrame {
     }
 
     public void refrescaLlistaCompra(LinkedList<Producte> productes) {
+        String listProducts = "";
+        for (Producte p: productes) {
+            listProducts += p.getNom() + "(" + p.getQuantitat() + ")" + "\n";
+        }
+        jtaListProducts.setText(listProducts);
+        refreshOptions(productes);
+    }
 
+    public  void refreshOptions(LinkedList<Producte> productes) {
+        jcbNomProductes.removeAllItems();
+        for (Producte p: productes) {
+            jcbNomProductes.addItem(p.getNom());
+        }
+    }
+
+    public Producte getNewProduct() {
+        return new Producte(jtfProductName.getText(), jcbUnitats.getItemAt(jcbUnitats.getSelectedIndex()));
     }
 
     public void assignaControladorBotons(ControladorBotons bController) {
