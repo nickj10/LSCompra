@@ -16,18 +16,6 @@ public class MainServidor {
                 server.startServer();
 
                 System.out.println("---- SERVER STARTED ----");
-
-        /* TEST
-        Producte milk = new Producte("Milk", 5);
-        Producte hotdog = new Producte("Hotdog", 3);
-
-        gestorProductes.afegeixProducte(milk);
-        gestorProductes.afegeixProducte(hotdog);
-
-        Producte milkAgain = new Producte("Milk", 2);
-
-        gestorProductes.afegeixProducte(milkAgain);
-        gestorProductes.eliminaProducte(milk); */
             }
         });
     }
