@@ -1,6 +1,8 @@
 package network;
 
 import model.GestorProductes;
+import model.Operation;
+import model.Producte;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,7 +12,7 @@ public class DedicatedServer extends Thread {
     private boolean running;
     private Socket socketClient;
     private ObjectInputStream ois;
-    private DataOutputStream dos;
+    private ObjectOutputStream oos;
     private LinkedList<DedicatedServer> clients;
     private GestorProductes model;
     private Server server;
@@ -24,8 +26,10 @@ public class DedicatedServer extends Thread {
     }
 
     public void startDedicatedServer() {
-        // iniciem el servidor dedicat
+        // Iniciem el servidor dedicat
         running = true;
+
+        // Executar el thread del client
         this.start();
     }
 
@@ -39,21 +43,61 @@ public class DedicatedServer extends Thread {
         try {
             // Creem els canals de comunicacio
             ois = new ObjectInputStream(socketClient.getInputStream());
-            dos = new DataOutputStream(socketClient.getOutputStream());
+            oos = new ObjectOutputStream(socketClient.getOutputStream());
 
-            // Aquí enviem l'objecte al client
-            dos.writeUTF("Chicken nuggets");
+            // Enviem noves dades
+            oos.writeObject(model);
 
             while (running) {
+
+                ois = new ObjectInputStream(socketClient.getInputStream());
+
                 // Esperem rebre dades del client
-                String in = ois.readUTF();
-                System.out.println(in);
+                Operation o = (Operation) ois.readObject();
+
+                if (o.getOper().equals("add")) {
+                    // Afegim el producte a la llista de productes en el servidor
+                    model.afegeixProducte(o.getProducte());
+                } else {
+                    if (o.getOper().equals("remove")) {
+                        model.eliminaProducte(o.getProducte());
+                    }
+                }
+
+                // Actualitzem els clients
+                updateAllClients();
+
             }
         }catch (IOException e1) {
-            // en cas derror aturem el servidor dedicat
+            // En cas d'error aturem el servidor dedicat
             stopDedicatedServer();
+
+            System.out.println("Aturem el servidor dedicat al client...");
+            e1.printStackTrace();
             // Eliminem el servidor dedicat del conjunt de servidors dedicats
             clients.remove(this);
+
+            System.out.println("Hem eliminat el client de la llista.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateAllClients() {
+        ObjectOutputStream oStream;
+        for (DedicatedServer dServer : clients) {
+            // recuperem el canal de sortida del servidor dedicat
+            // per tal de contactar amb el client
+            oStream = dServer.getOos();
+            try {
+                // netejem el canal de sortida
+                oStream.reset();
+
+                // Enviem noves dades
+                oos.writeObject(model);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -81,12 +125,12 @@ public class DedicatedServer extends Thread {
         this.ois = ois;
     }
 
-    public DataOutputStream getDos() {
-        return dos;
+    public ObjectOutputStream getOos() {
+        return oos;
     }
 
-    public void setDos(DataOutputStream dos) {
-        this.dos = dos;
+    public void setOos(ObjectOutputStream oos) {
+        this.oos = oos;
     }
 
     public LinkedList<DedicatedServer> getClients() {

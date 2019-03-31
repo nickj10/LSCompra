@@ -1,28 +1,28 @@
 package network;
 
 import model.GestorProductes;
+import model.Operation;
 import model.Producte;
+import view.VistaClient;
 
 import java.io.*;
-import java.net.ConnectException;
 import java.net.Socket;
 
 public class ServerCommunication extends Thread {
     private Socket socketServer;
     private ObjectOutputStream oos;
-    private DataInputStream dis;
+    private ObjectInputStream ois;
     private boolean running;
-    private GestorProductes model;
+    private VistaClient view;
 
-    public ServerCommunication(GestorProductes model) {
+    public ServerCommunication(VistaClient view) {
         try {
-            this.model = model;
+            this.view = view;
             this.socketServer = new Socket(ServerConfiguration.SERVER_IP, ServerConfiguration.SERVER_PORT);
-
-            System.out.println("----- CLIENT TO SERVER COM STARTED ----");
             this.running = false;
-            this.dis = new DataInputStream(socketServer.getInputStream());
+
             this.oos = new ObjectOutputStream(socketServer.getOutputStream());
+            this.ois = new ObjectInputStream(socketServer.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,9 +44,12 @@ public class ServerCommunication extends Thread {
         while (running) {
 
             try {
-                String rep = dis.readUTF();
-                System.out.println("Recibo esto del servidor:" + rep);
-                oos.writeUTF("Bitch!");
+                // Esperem dades del servidor
+                GestorProductes gestorProductes = (GestorProductes)ois.readObject();
+
+                // Refresquem la llista de productes a la vista
+                view.refrescaLlistaCompra(gestorProductes.getProductes());
+
             } catch (IOException e) {
                 e.printStackTrace();
                 // Si hi ha algun problema satura la comunicacio amb el servidor

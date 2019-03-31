@@ -44,15 +44,16 @@ public class Server extends Thread {
     public void run()  {
         while (running) {
             try {
-                // Acceptem peticions de connexio dels clients
+                // Esperem les peticions per poder acceptar-les
+                // Es bloqueja
+                System.out.println("Esperant petició...");
                 Socket socketClient = serverSocket.accept();
 
                 // Creem un nou servidor dedicat per atendre les peticions del client
                 DedicatedServer client = new DedicatedServer(socketClient, dedicatedServers, model, this);
                 dedicatedServers.add(client);
+                System.out.println("Petició acceptada!");
 
-
-                System.out.println("---- Peticion aceptada ---");
                 // Arrencar el servidor dedicat
                 client.startDedicatedServer();
             } catch (IOException e) {
@@ -61,7 +62,7 @@ public class Server extends Thread {
         }
         // Aturem tots els servidors dedicats creats quan ja no atenem més peticions
         for (DedicatedServer d : dedicatedServers) {
-            d.startDedicatedServer();
+            d.stopDedicatedServer();
         }
     }
 
