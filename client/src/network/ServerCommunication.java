@@ -62,7 +62,16 @@ public class ServerCommunication extends Thread {
         stopServerComunication();
     }
 
-    void enviaProducte(Producte producte) {
+    public void enviaProducte(Producte producte, String oper) {
+        try {
+            // enviem el producte al servidor
+            oos = new ObjectOutputStream(socketServer.getOutputStream());
+            oos.writeObject(new Operation(producte, oper));
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            stopServerComunication();
+            System.out.println("El servidor està en execució?");
+        }
     }
 }
