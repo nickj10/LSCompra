@@ -8,12 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorBotons implements ActionListener {
-    private GestorProductes model;
     private VistaClient view;
     private ServerCommunication serverCommunication;
 
     public ControladorBotons(GestorProductes model, VistaClient view, ServerCommunication serverCommunication) {
-        this.model = model;
         this.view = view;
         this.serverCommunication = serverCommunication;
 
@@ -23,6 +21,13 @@ public class ControladorBotons implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String action = e.getActionCommand();
+        if (action.equals("add")) {
+            serverCommunication.enviaProducte(view.getNewProduct(), "add");
+        } else {
+            if (action.equals("remove")) {
+                serverCommunication.enviaProducte(view.getNewProduct(), "remove");
+            }
+        }
     }
 }
